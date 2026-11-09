@@ -1,0 +1,581 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#160e19">
+<title>أنا من غيرك ❤️</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --pink:#e8a5ba;
+  --gold:#e5c99d;
+  --dark:#160e19;
+}
+
+body{
+  background:var(--dark);
+  color:#fff1f5;
+  font-family:'Cairo',sans-serif;
+  overflow-x:hidden;
+}
+
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  background:
+  radial-gradient(circle at 15% 20%,#7b34502b,transparent 40%),
+  radial-gradient(circle at 85% 75%,#a14e6320,transparent 45%);
+}
+
+/* شاشة الدخول */
+
+#lockScreen{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:22px;
+  background:radial-gradient(circle,#482538,#160e19 75%);
+}
+
+.lock-card{
+  width:100%;
+  max-width:390px;
+  text-align:center;
+  padding:42px 25px;
+  border:1px solid #e8a5ba66;
+  border-radius:25px;
+  background:#ffffff09;
+  backdrop-filter:blur(15px);
+  box-shadow:0 15px 60px #0008;
+  animation:fade 1.5s ease;
+}
+
+.lock-heart{
+  font-size:48px;
+  margin-bottom:15px;
+  animation:beat 1.8s infinite;
+}
+
+.lock-card h1{
+  font-family:'Amiri',serif;
+  font-size:35px;
+  color:var(--pink);
+  font-weight:400;
+}
+
+.lock-card p{
+  color:#e9cbd4;
+  font-size:14px;
+  line-height:2.2;
+  margin:12px 0 25px;
+}
+
+#password{
+  width:100%;
+  padding:14px;
+  border:1px solid #e8a5ba66;
+  border-radius:13px;
+  background:#ffffff10;
+  color:white;
+  font-size:21px;
+  text-align:center;
+  letter-spacing:6px;
+  outline:none;
+  font-family:'Cairo';
+}
+
+#password::placeholder{
+  color:#c5aab5;
+  font-size:13px;
+  letter-spacing:1px;
+}
+
+.enter-btn{
+  width:100%;
+  padding:13px;
+  margin-top:17px;
+  border:0;
+  border-radius:13px;
+  background:linear-gradient(120deg,#e5a4b9,#a95e7a);
+  color:white;
+  font-family:'Cairo';
+  font-size:17px;
+  cursor:pointer;
+}
+
+#error{
+  color:#ff9aaa;
+  font-size:13px;
+  margin-top:12px;
+}
+
+/* المحتوى */
+
+#website{display:none;padding-bottom:70px}
+
+.hero{
+  min-height:70vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:50px 20px;
+}
+
+.hero small{
+  color:var(--gold);
+  letter-spacing:4px;
+  font-size:12px;
+  margin-bottom:22px;
+}
+
+.hero h1{
+  font-family:'Amiri',serif;
+  font-weight:400;
+  color:var(--pink);
+  font-size:clamp(45px,11vw,75px);
+  text-shadow:0 0 35px #e8a5ba55;
+}
+
+.hero p{
+  color:#e9cbd4;
+  line-height:2.2;
+  margin-top:15px;
+  font-size:15px;
+}
+
+.scroll{
+  margin-top:55px;
+  color:var(--gold);
+  font-size:25px;
+  animation:down 2s infinite;
+}
+
+/* الذكريات */
+
+.memories{
+  max-width:760px;
+  margin:auto;
+  padding:0 18px;
+}
+
+.memory{
+  margin:0 auto 90px;
+  text-align:center;
+  opacity:0;
+  transform:translateY(40px);
+  transition:opacity 1.2s ease,transform 1.2s ease;
+}
+
+.memory.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+.image-frame{
+  padding:8px;
+  border:1px solid #dba5b666;
+  border-radius:20px;
+  background:linear-gradient(145deg,#ffffff12,#ffffff03);
+  box-shadow:0 15px 45px #0007;
+  overflow:hidden;
+}
+
+.image-frame img{
+  display:block;
+  width:100%;
+  max-height:650px;
+  object-fit:contain;
+  border-radius:13px;
+  background:#251725;
+}
+
+.memory-number{
+  color:var(--gold);
+  font-size:11px;
+  letter-spacing:4px;
+  margin:25px 0 14px;
+}
+
+.caption{
+  font-family:'Amiri',serif;
+  font-size:clamp(19px,4.5vw,24px);
+  line-height:2.15;
+  color:#f5dce5;
+  padding:0 5px;
+}
+
+.divider{
+  color:var(--pink);
+  font-size:23px;
+  margin-top:20px;
+}
+
+/* الخاتمة */
+
+.ending{
+  max-width:700px;
+  margin:110px auto 30px;
+  padding:45px 24px;
+  text-align:center;
+  border-top:1px solid #dba5b655;
+  border-bottom:1px solid #dba5b655;
+  background:linear-gradient(180deg,#ffffff06,transparent);
+  opacity:0;
+  transform:translateY(30px);
+  transition:1.5s;
+}
+
+.ending.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+.ending h2{
+  font-family:'Amiri',serif;
+  font-size:38px;
+  font-weight:400;
+  color:var(--pink);
+  margin-bottom:25px;
+}
+
+.ending p{
+  font-family:'Amiri',serif;
+  font-size:22px;
+  line-height:2.2;
+  color:#f4dce4;
+}
+
+.ending .last{
+  color:var(--gold);
+  font-size:27px;
+  margin-top:30px;
+}
+
+footer{
+  text-align:center;
+  color:#b994a2;
+  font-size:13px;
+  padding:40px 15px 10px;
+}
+
+/* زر الأغنية */
+
+.music-btn{
+  position:fixed;
+  bottom:22px;
+  left:18px;
+  z-index:50;
+  border:1px solid #e8a5ba77;
+  background:#39202f;
+  color:white;
+  border-radius:50px;
+  padding:11px 18px;
+  font-family:'Cairo';
+  font-size:13px;
+  display:none;
+  cursor:pointer;
+}
+
+.music-btn.playing{
+  animation:pulse 2s infinite;
+}
+
+/* القلوب */
+
+.heart{
+  position:fixed;
+  bottom:-30px;
+  color:#e8a5ba;
+  opacity:.4;
+  pointer-events:none;
+  animation:floatUp 8s linear forwards;
+  z-index:0;
+}
+
+@keyframes fade{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+@keyframes beat{
+  50%{transform:scale(1.15)}
+}
+
+@keyframes down{
+  50%{transform:translateY(12px)}
+}
+
+@keyframes pulse{
+  50%{box-shadow:0 0 22px #e8a5ba88}
+}
+
+@keyframes floatUp{
+  to{transform:translateY(-110vh) rotate(30deg);opacity:0}
+}
+
+@media(max-width:480px){
+  .hero{min-height:60vh}
+  .memory{margin-bottom:75px}
+  .image-frame{padding:6px}
+  .ending{padding:35px 17px}
+}
+</style>
+</head>
+
+<body>
+
+<div id="lockScreen">
+  <div class="lock-card">
+    <div class="lock-heart">❤️</div>
+    <h1>حكاية مختلفة</h1>
+    <p>
+      في حاجات كتير تستاهل نرجعلها..<br>
+      ودي حكايتنا إحنا
+    </p>
+
+    <input id="password"
+      type="password"
+      inputmode="numeric"
+      placeholder="كلمة السر"
+      autocomplete="off">
+
+    <button class="enter-btn" onclick="enterSite()">
+      افتحي حكايتنا ❤️
+    </button>
+
+    <div id="error"></div>
+  </div>
+</div>
+
+<audio id="song" loop preload="auto">
+  <source src="https://raw.githubusercontent.com/empiresilver39-afk/Emb/refs/heads/main/Albumaty.Com_bhaa_sltan_ana_mn_ghyrk_-_mn_fylm_alhwi_sltan.mp3" type="audio/mpeg">
+</audio>
+
+<button class="music-btn" id="musicBtn" onclick="toggleMusic()">
+  ♫ إيقاف الأغنية
+</button>
+
+<main id="website">
+
+  <section class="hero">
+    <small>JUST YOU & ME</small>
+    <h1>أنا من غيرك ❤️</h1>
+    <p>
+      يمكن الصور بتعدي..<br>
+      بس في لحظات عمرها ما بتعدي من القلب
+    </p>
+    <div class="scroll">↓</div>
+  </section>
+
+  <section class="memories">
+
+    <article class="memory">
+      <div class="image-frame">
+        <img src="https://raw.githubusercontent.com/empiresilver39-afk/Emb/main/62bd3700-4a31-4f06-a5bd-f1cdaea84e01.jpeg" alt="ذكرياتنا 1">
+      </div>
+      <div class="memory-number">MEMORY 01</div>
+      <p class="caption">
+        في صور كتير بنحبها، بس في صور أول ما بنشوفها بنبتسم من غير ما نحس.. ودي واحدة من اللحظات اللي نفسي تفضل معايا العمر كله. ❤️
+      </p>
+      <div class="divider">♡</div>
+    </article>
+
+    <article class="memory">
+      <div class="image-frame">
+        <img src="https://raw.githubusercontent.com/empiresilver39-afk/Emb/main/6b803eb0-1a60-4bbd-8228-0c837769b241.jpeg" alt="ذكرياتنا 2">
+      </div>
+      <div class="memory-number">MEMORY 02</div>
+      <p class="caption">
+        مش مهم المكان اللي كنا فيه ولا الوقت كان إمتى.. المهم إنك كنتي موجودة. وجودك لوحده كفاية يخلي أي يوم عادي يبقى من أجمل أيام عمري. ❤️
+      </p>
+      <div class="divider">♡</div>
+    </article>
+
+    <article class="memory">
+      <div class="image-frame">
+        <img src="https://raw.githubusercontent.com/empiresilver39-afk/Emb/main/7ec61291-428c-4783-be50-8db634b46b3e.jpeg" alt="ذكرياتنا 3">
+      </div>
+      <div class="memory-number">MEMORY 03</div>
+      <p class="caption">
+        ساعات ببص للصورة وأفتكر تفاصيل صغيرة يمكن إنتي نسيتيها.. بس أنا لسه فاكر إحساسي وقتها، ولسه نفس الابتسامة بتيجي على وشي. ❤️
+      </p>
+      <div class="divider">♡</div>
+    </article>
+
+    <article class="memory">
+      <div class="image-frame">
+        <img src="https://raw.githubusercontent.com/empiresilver39-afk/Emb/main/8090dea3-76f5-412c-b919-d66f06dcfa03.jpeg" alt="ذكرياتنا 4">
+      </div>
+      <div class="memory-number">MEMORY 04</div>
+      <p class="caption">
+        لو كان بإيدي أوقف لحظة واحدة من الزمن، كنت هختار لحظة كنتي فيها جنبي.. مش علشان الوقت يرجع، لكن علشان أعيش إحساسها مرة كمان. ❤️
+      </p>
+      <div class="divider">♡</div>
+    </article>
+
+    <article class="memory">
+      <div class="image-frame">
+        <img src="https://raw.githubusercontent.com/empiresilver39-afk/Emb/main/911d5a91-c9fa-41d9-a083-805e82190cfd.jpeg" alt="ذكرياتنا 5">
+      </div>
+      <div class="memory-number">MEMORY 05</div>
+      <p class="caption">
+        عارفة إيه أجمل حاجة في الذكريات؟ إنها بتفكرني إن في إنسانة قدرت تخلي تفاصيل حياتي أحلى، وإن ضحكتها بقت من الحاجات اللي بتفرح قلبي. بحبك. ❤️
+      </p>
+      <div class="divider">♡</div>
+    </article>
+
+    <article class="memory">
+      <div class="image-frame">
+        <img src="https://raw.githubusercontent.com/empiresilver39-afk/Emb/main/a1b0e3d2-e4c0-4c54-bc99-50cfd1c4f42f.jpeg" alt="ذكرياتنا 6">
+      </div>
+      <div class="memory-number">MEMORY 06</div>
+      <p class="caption">
+        مهما اتغيرت الأيام، هيفضل في قلبي مكان للحظات دي.. لأنها مش مجرد صور محفوظة، دي حاجات حلوة عشتها مع إنسانة غالية أوي على قلبي. ❤️
+      </p>
+      <div class="divider">♡</div>
+    </article>
+
+    <article class="memory">
+      <div class="image-frame">
+        <img src="https://raw.githubusercontent.com/empiresilver39-afk/Emb/main/ac246df5-718b-4eba-b808-e92932aaee79.jpeg" alt="ذكرياتنا 7">
+      </div>
+      <div class="memory-number">MEMORY 07</div>
+      <p class="caption">
+        نفسي نفضل نضحك على نفس الحاجات، ونعيش تفاصيل جديدة، ونفضل نلاقي أسباب كتير تخلينا نبتسم.. لأن أحلى حاجة عندي هي إنك تكوني مبسوطة. ❤️
+      </p>
+      <div class="divider">♡</div>
+    </article>
+
+    <article class="memory">
+      <div class="image-frame">
+        <img src="https://raw.githubusercontent.com/empiresilver39-afk/Emb/main/e2ab1b34-96d1-4393-8151-a74dc21819bd.jpeg" alt="ذكرياتنا 8">
+      </div>
+      <div class="memory-number">MEMORY 08</div>
+      <p class="caption">
+        وآخر صورة في ألبومنا، بس مش آخر الحكاية.. لسه في أيام كتير مستنيانا، وضحكات أكتر، وذكريات نفسي نجمعها سوا. ❤️
+      </p>
+      <div class="divider">♡</div>
+    </article>
+
+  </section>
+
+  <section class="ending">
+    <h2>لسه في حكايات كتير ❤️</h2>
+
+    <p>
+      يمكن مش بعرف أعبّر دايمًا عن كل اللي جوايا، ويمكن ساعات الكلام ميقدرش يوصف الإحساس اللي في قلبي..
+      <br><br>
+      بس عايزك تعرفي إن وجودك فرق معايا، وإن كل لحظة حلوة جمعتنا ليها مكان جوايا مش بيتغير.
+      <br><br>
+      نفسي الأيام الجاية تكون مليانة ضحك وفرحة، ونفضل نعمل ذكريات جديدة نرجعلها بعد سنين ونبتسم.
+      <br><br>
+      أتمنى تفضلي دايمًا شايفة نفسك بعيني، لأنك في عيني ليكي جمال ومكانة مفيش حد يقدر ياخدهم.
+      <br><br>
+      ولو ليا أمنية واحدة، فهي إن كل يوم جديد يكون فيه سبب يخليكي تبتسمي.
+    </p>
+
+    <div class="last">
+      إنتي حكاية قلبي.. ❤️
+    </div>
+  </section>
+
+  <footer>
+    Made with love, just for you ❤️
+  </footer>
+
+</main>
+
+<script>
+const correctPassword = "7112024";
+const song = document.getElementById("song");
+const musicBtn = document.getElementById("musicBtn");
+
+function enterSite(){
+  const entered = document.getElementById("password").value;
+
+  if(entered !== correctPassword){
+    document.getElementById("error").textContent =
+      "كلمة السر مش صحيحة.. جربي تاني ❤️";
+    return;
+  }
+
+  document.getElementById("lockScreen").style.display = "none";
+  document.getElementById("website").style.display = "block";
+  musicBtn.style.display = "block";
+
+  song.play().then(()=>{
+    musicBtn.textContent = "♫ إيقاف الأغنية";
+    musicBtn.classList.add("playing");
+  }).catch(()=>{
+    musicBtn.textContent = "♫ تشغيل الأغنية";
+  });
+
+  observeItems();
+  createHearts();
+}
+
+document.getElementById("password").addEventListener("keydown",e=>{
+  if(e.key === "Enter") enterSite();
+});
+
+function toggleMusic(){
+  if(song.paused){
+    song.play().then(()=>{
+      musicBtn.textContent = "♫ إيقاف الأغنية";
+      musicBtn.classList.add("playing");
+    }).catch(()=>{
+      musicBtn.textContent = "♫ تشغيل الأغنية";
+    });
+  }else{
+    song.pause();
+    musicBtn.textContent = "♫ تشغيل الأغنية";
+    musicBtn.classList.remove("playing");
+  }
+}
+
+function observeItems(){
+  const observer = new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add("show");
+        observer.unobserve(entry.target);
+      }
+    });
+  },{threshold:0.12});
+
+  document.querySelectorAll(".memory,.ending").forEach(item=>{
+    observer.observe(item);
+  });
+}
+
+function createHearts(){
+  setInterval(()=>{
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.textContent = Math.random()>0.5 ? "♡" : "♥";
+    heart.style.left = Math.random()*100+"vw";
+    heart.style.fontSize = (14+Math.random()*20)+"px";
+    heart.style.animationDuration = (6+Math.random()*5)+"s";
+
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),11000);
+  },1400);
+}
+</script>
+
+</body>
+</html>
